@@ -1,6 +1,6 @@
 # Usage
 
-Use in bash CLI:
+In bash CLI:
 
 `$    git clone https://github.com/rmolinamir/react-png-component`
 
