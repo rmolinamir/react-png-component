@@ -1,3 +1,3 @@
-import Component from './Component/Component'
+import MyComponent from './MyComponent/MyComponent'
 
-export default Component
+export default MyComponent

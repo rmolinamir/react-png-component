@@ -31,30 +31,40 @@ const config = (mode, type = 'package') => {
    * HotModuleReplacementPlugin (to save state between changes) and HtmlWebpackPlugin (to open the index.html that hosts
    * the example app).
    */
-  const plugins = mode === 'production'
-    /**
-     * Development mode plugins array.
-     */
-    ? [
-      new MiniCssExtractPlugin(),
-      new CleanWebpackPlugin(['dist'])
-    ]
-    : type === 'example'
+  const plugins = type === 'example'
       /**
-       * Example app plugins array.
+       * Example app plugins.
        */
       ? [
         new HtmlWebpackPlugin({
           template: './public/index.html'
         }),
-        new webpack.HotModuleReplacementPlugin()
-      ]
-      /**
-       * Package app plugins array.
-       */
-      : [
+        new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin(['build/*.*']),
         new MiniCssExtractPlugin()
       ]
+      /**
+       * Package plugins.
+       */
+      : mode === 'production'
+        ? 
+          /**
+           * Production mode.
+           */
+          [
+            new MiniCssExtractPlugin(),
+            /**
+             * Removes all files in 'dist' & 'build' folder.
+             * https://github.com/johnagan/clean-webpack-plugin#paths-required
+             */
+            // new CleanWebpackPlugin(['dist/*.*'], { exclude: ['index.js'] })
+          ]
+          /**
+           * Development mode.
+           */
+          : [
+            new MiniCssExtractPlugin()
+          ]
 
   /**
    * We defined generic configurations to avoid code repetition, which is good practice. Now, we need to add the specific
@@ -97,8 +107,7 @@ module.exports = ({ mode } = { mode: 'production' }) => {
    * ./src/example/index.js - App to test the application, opens the browser when on development.
    */
   const exampleConfig = Object.assign({}, config(mode, 'example'), {
-    name: 'example',
-    entry: path.resolve(__dirname, '/example/index.js'),
+    entry: path.resolve(__dirname, 'example/index.js'),
     output: {
       publicPath: '/',
       path: path.resolve(__dirname, 'build'),
@@ -111,10 +120,9 @@ module.exports = ({ mode } = { mode: 'production' }) => {
    * ./src/index.js - Package JavaScript file(s).
    */
   const packageConfig = Object.assign({}, config(mode), {
-    name: 'package',
-    entry: path.resolve(__dirname, '/src/index.js'),
+    entry: path.resolve(__dirname, 'src/index.js'),
     output: {
-      publicPath: '/',
+      publicPath: '/dist/',
       path: path.resolve(__dirname, 'dist'),
       filename: 'index.js',
       chunkFilename: '[name].[contenthash:6].js',

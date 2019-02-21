@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 // JSX
-const MyLazyComponent = lazy(() => import(/* webpackPrefetch: true */ './MyLazyComponent'))
+const MyLazyComponent = lazy(() => import(/* webpackChunkName: 'Lazy', webpackPrefetch: true */ './MyLazyComponent'))
 
 const myComponent = (props) => {
   const [hookedState, setState] = useState('Initial state.')
