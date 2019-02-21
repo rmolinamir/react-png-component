@@ -4,7 +4,7 @@ import propTypes from 'prop-types'
 const LazyComponent = lazy(() => import(/* webpackPrefetch: true */ './Lazy'))
 
 const component = (props) => {
-  const [hookedState, setState] = useState('Hooked State!');
+  const [hookedState, setState] = useState('Hooked State!')
 
   useEffect(() => {
     setState('UNITED STATES OF SMASH!')
