@@ -7,8 +7,7 @@ In bash CLI:
 Afterwards, run the following commands in the root folder:
 
 1. `npm install`
-2. `cd example`
-3. `npm install`
+2. That's it!
 
 **To link** the component to the example folder:
 

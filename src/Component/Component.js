@@ -1,17 +1,23 @@
-import React, { useState } from 'react'
+import React, { Suspense, lazy, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-// CSS
-import classes from './Component.css'
+// JSX
+const LazyComponent = lazy(() => import(/* webpackPrefetch: true */ './Lazy'))
 
 const component = (props) => {
-  const [hookState] = useState('Hooks are working!')
+  const [hookedState, setState] = useState('Hooked State!');
+
+  useEffect(() => {
+    setState('UNITED STATES OF SMASH!')
+  }, [])
 
   return (
-    <div className={classes.Wrapper}>
+    <div>
       {props.children}
-      <div>
-        {hookState}
-      </div>
+      <hr />
+      <Suspense fallback={<h1>LOADING</h1>}>
+        <LazyComponent />
+      </Suspense>
+      <h3>{hookedState}</h3>
     </div>
   )
 }
