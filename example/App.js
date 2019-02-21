@@ -6,6 +6,7 @@ import './sass/app.scss'
 // JSX
 import MyComponent from '../src'
 import AnotherComp from '../dist'
+
 class App extends Component {
   render() {
     return (
@@ -18,4 +19,4 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App);
+export default hot(module)(App)

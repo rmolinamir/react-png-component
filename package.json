@@ -3,10 +3,7 @@
   "version": "0.1.12",
   "description": "Description",
   "main": "dist/index.js",
-  "directory": "dist/",
-  "files": [
-    "dist/"
-  ],
+  "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack",
@@ -23,6 +20,7 @@
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "clean-webpack-plugin": "^1.0.1",
     "css-loader": "^2.1.0",
     "eslint": "^5.13.0",
     "eslint-config-standard": "^12.0.0",

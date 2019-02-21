@@ -7,6 +7,7 @@ const modeConfiguration = env => require(`./build-utils/webpack.${env}`)(env)
  */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 /**
  * Separating the output path by using the multi-compiler. (i.e. separating the configuration object of webpack.config.js).
@@ -35,7 +36,8 @@ const config = (mode, type = 'package') => {
      * Development mode plugins array.
      */
     ? [
-      new MiniCssExtractPlugin()
+      new MiniCssExtractPlugin(),
+      new CleanWebpackPlugin(['dist'])
     ]
     : type === 'example'
       /**
@@ -96,13 +98,13 @@ module.exports = ({ mode } = { mode: 'production' }) => {
    */
   const exampleConfig = Object.assign({}, config(mode, 'example'), {
     name: 'example',
-    entry: './example/index.js',
+    entry: path.resolve(__dirname, '/example/index.js'),
     output: {
       publicPath: '/',
       path: path.resolve(__dirname, 'build'),
       filename: 'index.js'
     },
-    stats: 'none'
+    stats: 'errors-only'
   })
 
   /**
@@ -110,44 +112,30 @@ module.exports = ({ mode } = { mode: 'production' }) => {
    */
   const packageConfig = Object.assign({}, config(mode), {
     name: 'package',
-    entry: './src/index.js',
+    entry: path.resolve(__dirname, '/src/index.js'),
     output: {
-      publicPath: '/dist/',
+      publicPath: '/',
       path: path.resolve(__dirname, 'dist'),
       filename: 'index.js',
-      chunkFilename: '[name].chunk.js',
+      chunkFilename: '[name].[contenthash:6].js',
       /**
        * When used in tandem with output.library and output.libraryTarget, this option allows users to
        * insert comments within the export wrapper. To insert the same comment for each libraryTarget type,
        * set auxiliaryComment to a string.
        * https://webpack.js.org/configuration/output/#outputauxiliarycomment
        */
-      // library: '',
-      // libraryTarget: 'commonjs2'
+      library: '',
+      libraryTarget: 'commonjs2'
       /**
        * Another possible output config using UMD (Universal Module Definition) patterns for
        * JavaScript modules that work everywhere:
-       *
-        // webpack.config.js
-        module.exports = [{
-          output: {
-            library: 'example',
-            libraryTarget: 'umd',
-            umdNamedDefine: true
-          }
-        }]
-        // package.json
-        {
-          'name': 'example',
-          'main': 'dist/index.js'
-        }
        * https://github.com/webpack/webpack/issues/2030#issuecomment-359910066
        * http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6
        * https://github.com/umdjs/umd
        */
-      library: 'react-png-component',
-      libraryTarget: 'umd',
-      umdNamedDefine: true
+      // library: 'react-png-component',
+      // libraryTarget: 'umd',
+      // umdNamedDefine: true
     },
     stats: {
       colors: true,
@@ -172,9 +160,12 @@ module.exports = ({ mode } = { mode: 'production' }) => {
   })
 
   /**
-   * Multi-compiler.
+   * Do NOT modify the array order, read right-to-left. Package config will be built first.
    */
   return [
+    /**
+   * Multi-compiler.
+   */
     { mode, ...exampleConfig }, { mode, ...packageConfig }
   ]
 }

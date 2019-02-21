@@ -9,10 +9,11 @@ module.exports = () => ({
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true // set to true if you want JS source maps for css
+        sourceMap: true // Set to true if you want JS source maps for CSS.
       }),
       new OptimizeCSSAssetsPlugin({})
-    ]
+    ],
+    sideEffects: false
   },
   module: {
     rules: [

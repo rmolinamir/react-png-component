@@ -1,13 +1,13 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 // JSX
-const LazyComponent = lazy(() => import(/* webpackPrefetch: true */ './Lazy'))
+const MyLazyComponent = lazy(() => import(/* webpackPrefetch: true */ './MyLazyComponent'))
 
-const component = (props) => {
-  const [hookedState, setState] = useState('Hooked State!')
+const myComponent = (props) => {
+  const [hookedState, setState] = useState('Initial state.')
 
   useEffect(() => {
-    setState('UNITED STATES OF SMASH!')
+    setState('Component mounted successfully.')
   }, [])
 
   return (
@@ -15,15 +15,15 @@ const component = (props) => {
       {props.children}
       <hr />
       <Suspense fallback={<h1>LOADING</h1>}>
-        <LazyComponent />
+        <MyLazyComponent />
       </Suspense>
       <h3>{hookedState}</h3>
     </div>
   )
 }
 
-component.propTypes = {
+myComponent.propTypes = {
   children: propTypes.any
 }
 
-export default component
+export default myComponent
