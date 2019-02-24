@@ -107,7 +107,7 @@ module.exports = ({ mode } = { mode: 'production' }) => {
    * ./src/example/index.js - App to test the application, opens the browser when on development.
    */
   const exampleConfig = Object.assign({}, config(mode, 'example'), {
-    entry: path.resolve(__dirname, 'example/index.js'),
+    entry: path.resolve(__dirname, 'example'),
     output: {
       publicPath: '/',
       path: path.resolve(__dirname, 'build'),
@@ -120,9 +120,9 @@ module.exports = ({ mode } = { mode: 'production' }) => {
    * ./src/index.js - Package JavaScript file(s).
    */
   const packageConfig = Object.assign({}, config(mode), {
-    entry: path.resolve(__dirname, 'src/index.js'),
+    entry: path.resolve(__dirname, 'src'),
     output: {
-      publicPath: '/dist/',
+      publicPath: './dist/',
       path: path.resolve(__dirname, 'dist'),
       filename: 'index.js',
       chunkFilename: '[name].[contenthash:6].js',
@@ -169,11 +169,15 @@ module.exports = ({ mode } = { mode: 'production' }) => {
 
   /**
    * Do NOT modify the array order, read right-to-left. Package config will be built first.
+   * If on development then return both configurations, else only build the package.
    */
-  return [
-    /**
-   * Multi-compiler.
-   */
-    { mode, ...exampleConfig }, { mode, ...packageConfig }
-  ]
+  if (mode === 'development') {
+    return [
+      /**
+     * Multi-compiler.
+     */
+      { mode, ...exampleConfig }, { mode, ...packageConfig }
+    ]
+  }
+  return { mode, ...packageConfig }
 }

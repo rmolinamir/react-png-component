@@ -1,8 +1,13 @@
 {
   "name": "react-png-component",
-  "version": "0.1.16",
+  "version": "0.1.21",
   "description": "Description",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/rmolinamir/react-png-component#readme",
   "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -57,7 +62,6 @@
   "bugs": {
     "url": "https://github.com/rmolinamir/react-png-component/issues"
   },
-  "homepage": "https://github.com/rmolinamir/react-png-component#readme",
   "keywords": [
     "react",
     "png",
