@@ -2,17 +2,20 @@
 
 In bash CLI:
 
-`$    git clone https://github.com/rmolinamir/react-png-component`
+`$    git clone https://github.com/rmolinamir/[name-of-the-package]`
 
 Afterwards, run the following commands in the root folder:
 
-1. `npm install`
-2. That's it!
+1. Change the `package.json` name, description, and other properties to the component's respective properties.
+2. `npm install`
+3. That's it!
 
 **To link** the component to the example folder:
 
 1. On the root folder, execute `npm link`.
-2. After it's finished, execute `cd example`, then `npm link react-png-component`.
+2. After it's finished, execute `cd example`, then `npm link [name-of-the-package]`.
+
+**If anything goes wrong, then delete the `node_modules` folders and the `package-lock.json` files then start over.**
 
 **To run**, execute `npm start` on root and inside the example folder.
 
@@ -24,12 +27,12 @@ Afterwards, run the following commands in the root folder:
 
 > Component description
 
-[![NPM](https://img.shields.io/npm/v/react-png-component.svg)](https://www.npmjs.com/package/react-png-component) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/[name-of-the-package].svg)](https://www.npmjs.com/package/[name-of-the-package]) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-png-component
+npm install --save [name-of-the-package]
 ```
 
 ## Showcase
@@ -57,7 +60,7 @@ Props               |       Functionality
 ```jsx
 import React, { Component } from 'react'
 
-import Component from 'react-png-component'
+import Component from '[name-of-the-package]'
 
 const component = () => {
     return (
