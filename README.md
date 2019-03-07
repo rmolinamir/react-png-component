@@ -2,7 +2,7 @@
 
 In bash CLI:
 
-`$    git clone https://github.com/rmolinamir/[name-of-the-package]`
+`$    git clone https://github.com/rmolinamir/react-png-component`
 
 Afterwards, run the following commands in the root folder:
 
